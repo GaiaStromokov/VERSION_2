@@ -1,0 +1,500 @@
+{
+    "Core": {
+        "Level": 3,
+        "Race": "Elf",
+        "Subrace": "",
+        "Class": "Empty",
+        "Subclass": "Empty",
+        "Background": "Empty"
+    },
+    "Atr": {
+        "STR": {
+            "Base": 1,
+            "Race": 0,
+            "Milestone": 0
+        },
+        "DEX": {
+            "Base": 1,
+            "Race": 0,
+            "Milestone": 0
+        },
+        "CON": {
+            "Base": 1,
+            "Race": 0,
+            "Milestone": 0
+        },
+        "INT": {
+            "Base": 1,
+            "Race": 0,
+            "Milestone": 0
+        },
+        "WIS": {
+            "Base": 1,
+            "Race": 0,
+            "Milestone": 0
+        },
+        "CHA": {
+            "Base": 1,
+            "Race": 0,
+            "Milestone": 0
+        }
+    },
+    "Vision": {
+        "Dark": {
+            "Race": 0,
+            "Class": 0,
+            "Feat": 0
+        },
+        "Blind": {
+            "Race": 0,
+            "Class": 0,
+            "Feat": 0
+        },
+        "Tremor": {
+            "Race": 0,
+            "Class": 0,
+            "Feat": 0
+        },
+        "Tru": {
+            "Race": 0,
+            "Class": 0,
+            "Feat": 0
+        }
+    },
+    "Speed": {
+        "Walk": {
+            "Race": 0,
+            "Class": 0,
+            "Feat": 0
+        },
+        "Climb": {
+            "Race": 0,
+            "Class": 0,
+            "Feat": 0
+        },
+        "Swim": {
+            "Race": 0,
+            "Class": 0,
+            "Feat": 0
+        },
+        "Fly": {
+            "Race": 0,
+            "Class": 0,
+            "Feat": 0
+        },
+        "Burrow": {
+            "Race": 0,
+            "Class": 0,
+            "Feat": 0
+        }
+    },
+    "Initiative": {
+        "Race": 0,
+        "Class": 0,
+        "Milestone": 0
+    },
+    "HP": {
+        "Temp": 0,
+        "Player": 30,
+        "Race": 0,
+        "Class": 0,
+        "Milestone": 0,
+        "Current": 30
+    },
+    "Prof": {
+        "Weapon": {
+            "Base": [],
+            "Race": [],
+            "Class": [],
+            "Milestone": [],
+            "Background": []
+        },
+        "Armor": {
+            "Base": [],
+            "Race": [],
+            "Class": [],
+            "Milestone": [],
+            "Background": []
+        },
+        "Tool": {
+            "Base": [],
+            "Race": [],
+            "Class": [],
+            "Milestone": [],
+            "Background": []
+        },
+        "Lang": {
+            "Base": [],
+            "Race": [],
+            "Class": [],
+            "Milestone": [],
+            "Background": []
+        }
+    },
+    "Skill": {
+        "Acrobatics": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Animal Handling": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Arcana": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Athletics": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Deception": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "History": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Insight": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Intimidation": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Investigation": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Medicine": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Nature": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Perception": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Performance": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Persuasion": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Religion": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Sleight of Hand": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Stealth": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        },
+        "Survival": {
+            "Race": {
+                "prof": false,
+                "exp": false
+            },
+            "Class": {
+                "prof": false,
+                "exp": false
+            },
+            "Milestone": {
+                "prof": false,
+                "exp": false
+            },
+            "Background": {
+                "prof": false,
+                "exp": false
+            }
+        }
+    },
+    "Race": {
+        "Features": {
+            "Fey_Ancestry": {
+                "Tag": "Passive",
+                "Desc": [
+                    "You have advantage on saving throws against being charmed, and magic can't put you to sleep."
+                ]
+            },
+            "Trance": {
+                "Tag": "Passive",
+                "Desc": [
+                    "You don't need to sleep. Instead, you meditate deeply, remaining semiconscious, for 4 hours a day."
+                ]
+            }
+        }
+    },
+    "Class": {
+        "Features": {}
+    },
+    "Caster": {
+        "Spell_Abil": "",
+        "Prep_Type": "",
+        "Caster_Type": "",
+        "L_Slot": [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ],
+        "L_Max_Spell_Level": [],
+        "L_Cantrips_Available": [],
+        "L_Spells_Available": [],
+        "Slot": []
+    }
+}

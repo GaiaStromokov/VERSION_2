@@ -1,0 +1,594 @@
+{
+    "Club": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Melee"],
+        "Prop": ["Light"],
+        "Damage": {"Roll": "1d4", "Hit": 0, "Dam": 0},
+        "Type": "Bludgeoning",
+        "Reach": "5",
+        "Weight": 2,
+        "Cost": 1,        
+        "Attune": false
+    },
+    "Dagger": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Melee"],
+        "Prop": ["Finesse", "Light", "Thrown"],
+        "Damage": {"Roll": "1d4", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "5",
+        "Range": "20/60",
+        "Weight": 1,
+        "Cost": 2,        
+        "Attune": false
+
+    },
+    "Dart": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Ranged"],
+        "Prop": ["Finesse", "Thrown"],
+        "Damage": {"Roll": "1d4", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Range": "20/60",
+        "Weight": 0.25,
+        "Cost": 0.05,
+        "Attune": false
+
+    },
+    "Handaxe": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Melee"],
+        "Prop": ["Light", "Thrown"],
+        "Damage": {"Roll": "1d6", "Hit": 0, "Dam": 0},
+        "Type": "Slashing",
+        "Reach": "5",
+        "Range": "20/60",
+        "Weight": 2,
+        "Cost": 2,
+        "Attune": false
+
+    },
+    "Javelin": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Melee"],
+        "Prop": ["Thrown"],
+        "Damage": {"Roll": "1d6", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "5",
+        "Range": "30/120",
+        "Weight": 2,
+        "Cost": 0.5,
+        "Attune": false
+
+    },
+    "Light_Hammer": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Melee"],
+        "Prop": ["Light", "Thrown"],
+        "Damage": {"Roll": "1d4", "Hit": 0, "Dam": 0},
+        "Type": "Bludgeoning",
+        "Reach": "5",
+        "Range": "20/60",
+        "Weight": 2,
+        "Cost": 2,
+        "Attune": false
+
+    },
+    "Mace": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Melee"],
+        "Prop": [],
+        "Damage": {"Roll": "1d6", "Hit": 0, "Dam": 0},
+        "Type": "Bludgeoning",
+        "Reach": "5",
+        "Weight": 4,
+        "Cost": 5,
+        "Attune": false
+
+    },
+    "Quarterstaff": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Melee"],
+        "Prop": ["Versatile"],
+        "Damage": {"Roll": "1d6", "Hit": 0, "Dam": 0},
+        "vDamage": "1d8",
+        "Type": "Bludgeoning",
+        "Reach": "5",
+        "Weight": 4,
+        "Cost": 0.2,
+        "Attune": false
+
+    },
+    "Sickle": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Melee"],
+        "Prop": ["Light"],
+        "Damage": {"Roll": "1d4", "Hit": 0, "Dam": 0},
+        "Type": "Slashing",
+        "Reach": "5",
+        "Weight": 2,
+        "Cost": 1,
+        "Attune": false
+
+    },
+    "Spear": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Melee"],
+        "Prop": ["Thrown", "Versatile"],
+        "Damage": {"Roll": "1d6", "Versatile": "1d8", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "5",
+        "Range": "20/60",
+        "Weight": 3,
+        "Cost": 1,
+        "Attune": false
+
+    },
+    "Light_Crossbow": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Ranged"],
+        "Prop": ["Ammunition", "Loading", "Two-handed"],
+        "Damage": {"Roll": "1d8", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Range": "80/320",
+        "Weight": 5,
+        "Cost": 25,
+        "Attune": false
+
+    },
+    "Shortbow": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Ranged"],
+        "Prop": ["Ammunition", "Two-handed"],
+        "Damage": {"Roll": "1d6", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Range": "80/320",
+        "Weight": 2,
+        "Cost": 25,
+        "Attune": false
+
+    },
+    "Sling": {
+        "Slot": "Weapon",
+        "Cat": ["Simple", "Ranged"],
+        "Prop": ["Ammunition"],
+        "Damage": {"Roll": "1d4", "Hit": 0, "Dam": 0},
+        "Type": "Bludgeoning",
+        "Range": "30/120",
+        "Weight": 0,
+        "Cost": 0.1,
+        "Attune": false
+
+    },
+    "Battle_axe": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Versatile"],
+        "Damage": {"Roll": "1d8", "Versatile": "1d10", "Hit": 0, "Dam": 0},
+        "Type": "Slashing",
+        "Reach": "5",
+        "Weight": 4,
+        "Cost": 10,
+        "Attune": false
+
+    },
+    "Flail": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": [],
+        "Damage": {"Roll": "1d8", "Hit": 0, "Dam": 0},
+        "Type": "Bludgeoning",
+        "Reach": "5",
+        "Weight": 2,
+        "Cost": 10,
+        "Attune": false
+
+    },
+    "Glaive": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Heavy", "Reach", "Two-handed"],
+        "Damage": {"Roll": "1d10", "Hit": 0, "Dam": 0},
+        "Type": "Slashing",
+        "Reach": "10",
+        "Weight": 6,
+        "Cost": 20,
+        "Attune": false
+
+    },
+    "Great_axe": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Heavy", "Two-handed"],
+        "Damage": {"Roll": "1d12", "Hit": 0, "Dam": 0},
+        "Type": "Slashing",
+        "Reach": "5",
+        "Weight": 7,
+        "Cost": 30,
+        "Attune": false
+
+    },
+    "Greatsword": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Heavy", "Two-handed"],
+        "Damage": {"Roll": "2d6", "Hit": 0, "Dam": 0},
+        "Type": "Slashing",
+        "Reach": "5",
+        "Weight": 6,
+        "Cost": 50,
+        "Attune": false
+
+    },
+    "Halberd": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Heavy", "Reach", "Two-handed"],
+        "Damage": {"Roll": "1d10", "Hit": 0, "Dam": 0},
+        "Type": "Slashing",
+        "Reach": "10",
+        "Weight": 6,
+        "Cost": 20,
+        "Attune": false
+
+    },
+    "Lance": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Reach", "Special"],
+        "Damage": {"Roll": "1d12", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "10",
+        "Weight": 6,
+        "Cost": 10,
+        "Attune": false
+
+    },
+    "Longsword": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Versatile"],
+        "Damage": {"Roll": "1d8", "Hit": 0, "Dam": 0},
+        "vDamage": "1d10",
+        "Type": "Slashing",
+        "Reach": "5",
+        "Weight": 3,
+        "Cost": 15,
+        "Attune": false
+
+    },
+    "Maul": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Heavy", "Two-handed"],
+        "Damage": {"Roll": "2d6", "Hit": 0, "Dam": 0},
+        "Type": "Bludgeoning",
+        "Reach": "5",
+        "Weight": 10,
+        "Cost": 10,
+        "Attune": false
+
+    },
+    "Morningstar": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": [],
+        "Damage": {"Roll": "1d8", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "5",
+        "Weight": 4,
+        "Cost": 15,
+        "Attune": false
+
+    },
+    "Pike": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Heavy", "Reach", "Two-handed"],
+        "Damage": {"Roll": "1d10", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "10",
+        "Weight": 18,
+        "Cost": 5,
+        "Attune": false
+
+    },
+    "Rapier": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Finesse"],
+        "Damage": {"Roll": "1d8", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "5",
+        "Weight": 2,
+        "Cost": 25,
+        "Attune": false
+
+    },
+    "Scimitar": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Finesse", "Light"],
+        "Damage": {"Roll": "1d6", "Hit": 0, "Dam": 0},
+        "Type": "Slashing",
+        "Reach": "5",
+        "Weight": 3,
+        "Cost": 25,
+        "Attune": false
+
+    },
+    "Shortsword": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Finesse", "Light"],
+        "Damage": {"Roll": "1d6", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "5",
+        "Weight": 2,
+        "Cost": 10,
+        "Attune": false
+
+    },
+    "Trident": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Thrown", "Versatile"],
+        "Damage": {"Roll": "1d6", "Verse": "1d8", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "5",
+        "Range": "20/60",
+        "Weight": 4,
+        "Cost": 5,
+        "Attune": false
+
+    },
+    "War_Pick": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": [],
+        "Damage": {"Roll": "1d8", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Reach": "5",
+        "Weight": 2,
+        "Cost": 5,
+        "Attune": false
+
+    },
+    "Warhammer": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Versatile"],
+        "Damage": {"Roll": "1d8", "Verse": "1d10", "Hit": 0, "Dam": 0},
+        "Type": "Bludgeoning",
+        "Reach": "5",
+        "Weight": 2,
+        "Cost": 15,
+        "Attune": false
+
+    },
+    "Whip": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Melee"],
+        "Prop": ["Finesse", "Reach"],
+        "Damage": {"Roll": "1d4", "Hit": 0, "Dam": 0},
+        "Type": "Slashing",
+        "Reach": "10",
+        "Weight": 3,
+        "Cost": 2,
+        "Attune": false
+
+    },
+    "Blowgun": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Ranged"],
+        "Prop": ["Ammunition", "Loading"],
+        "Damage": {"Roll": "1", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Range": "25/100",
+        "Weight": 1,
+        "Cost": 10,
+        "Attune": false
+
+    },
+    "Hand_Crossbow": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Ranged"],
+        "Prop": ["Ammunition", "Light", "Loading"],
+        "Damage": {"Roll": "1d6", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Range": "30/120",
+        "Weight": 3,
+        "Cost": 75,
+        "Attune": false
+
+    },
+    "Heavy_Crossbow": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Ranged"],
+        "Prop": ["Ammunition", "Heavy", "Loading", "Two-handed"],
+        "Damage": {"Roll": "1d10", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Range": "100/400",
+        "Weight": 18,
+        "Cost": 50,
+        "Attune": false
+
+    },
+    "Long_bow": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Ranged"],
+        "Prop": ["Ammunition", "Heavy", "Two-handed"],
+        "Damage": {"Roll": "1d8", "Hit": 0, "Dam": 0},
+        "Type": "Piercing",
+        "Range": "150/600",
+        "Weight": 2,
+        "Cost": 50,
+        "Attune": false
+
+    },
+    "Net": {
+        "Slot": "Weapon",
+        "Cat": ["Martial", "Ranged"],
+        "Prop": ["Special", "Thrown"],
+        "Damage": {"Roll": "NA", "Hit": 0, "Dam": 0},
+        "Type": "NA",
+        "Range": "5/15",
+        "Weight": 3,
+        "Cost": 1,
+        "Attune": false
+
+    },
+    "Padded": {
+        "Slot": "Armor",
+        "Cat": ["Light"],
+        "AC": 11,
+        "Dex_Max": 999,
+        "Str_Req": 0,
+        "Stealth_Dis": true,
+        "Weight": 8,
+        "Cost": 5,
+        "Attune": false
+
+    },
+    "Leather": {
+        "Slot": "Armor",
+        "Cat": ["Light"],
+        "AC": 11,
+        "Dex_Max": 999,
+        "Str_Req": 0,
+        "Stealth_Dis": false,
+        "Weight": 10,
+        "Cost": 10,
+        "Attune": false
+
+    },
+    "Studded_Leather": {
+        "Slot": "Armor",
+        "Cat": ["Light"],
+        "AC": 12,
+        "Dex_Max": 999,
+        "Str_Req": 0,
+        "Stealth_Dis": false,
+        "Weight": 13,
+        "Cost": 45,
+        "Attune": false
+    },
+    "Hide": {
+        "Slot": "Armor",
+        "Cat": ["Medium"],
+        "AC": 12,
+        "Dex_Max": 2,
+        "Str_Req": 0,
+        "Stealth_Dis": false,
+        "Weight": 12,
+        "Cost": 10,
+        "Attune": false
+
+    },
+    "Chain_Shirt": {
+        "Slot": "Armor",
+        "Cat": ["Medium"],
+        "AC": 13,
+        "Dex_Max": 2,
+        "Str_Req": 0,
+        "Stealth_Dis": false,
+        "Weight": 20,
+        "Cost": 50,
+        "Attune": false
+
+    },
+    "Scale_Mail": {
+        "Slot": "Armor",
+        "Cat": ["Medium"],
+        "AC": 14,
+        "Dex_Max": 2,
+        "Str_Req": 0,
+        "Stealth_Dis": true,
+        "Weight": 45,
+        "Cost": 50,
+        "Attune": false
+
+    },
+    "Breastplate": {
+        "Slot": "Armor",
+        "Cat": ["Medium"],
+        "AC": 14,
+        "Dex_Max": 2,
+        "Str_Req": 0,
+        "Stealth_Dis": false,
+        "Weight": 20,
+        "Cost": 400,
+        "Attune": false
+
+    },
+    "Half_Plate": {
+        "Slot": "Armor",
+        "Cat": ["Medium"],
+        "AC": 15,
+        "Dex_Max": 2,
+        "Str_Req": 0,
+        "Stealth_Dis": true,
+        "Weight": 40,
+        "Cost": 750,
+        "Attune": false
+
+    },
+    "Ring_Mail": {
+        "Slot": "Armor",
+        "Cat": ["Heavy"],
+        "AC": 14,
+        "Dex_Max": 0,
+        "Str_Req": 0,
+        "Stealth_Dis": true,
+        "Weight": 40,
+        "Cost": 30,
+        "Attune": false
+
+    },
+    "Chain_Mail": {
+        "Slot": "Armor",
+        "Cat": ["Heavy"],
+        "AC": 16,
+        "Dex_Max": 0,
+        "Str_Req": 13,
+        "Stealth_Dis": true,
+        "Weight": 55,
+        "Cost": 75,
+        "Attune": false
+
+    },
+    "Splint": {
+        "Slot": "Armor",
+        "Cat": ["Heavy"],
+        "AC": 17,
+        "Dex_Max": 0,
+        "Str_Req": 15,
+        "Stealth_Dis": true,
+        "Weight": 60,
+        "Cost": 200,
+        "Attune": false
+
+    },
+    "Plate": {
+        "Slot": "Armor",
+        "Cat": ["Heavy"],
+        "AC": 18,
+        "Dex_Max": 0,
+        "Str_Req": 15,
+        "Stealth_Dis": true,
+        "Weight": 65,
+        "Cost": 1500,
+        "Attune": false
+
+    },
+    "Shield": {
+        "Slot": "Shield",
+        "Cat": ["Shield"],
+        "Prop": [],
+        "AC": 2,
+        "Weight": 6,
+        "Cost": 10,
+        "Attune": false
+
+    }
+}
