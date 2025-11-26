@@ -225,10 +225,12 @@ class tProf:
     def Sit(self, cat, val):
         getattr(self, cat).extend(val)
         self.Sum()
+    
+    def Clear(self, cat):
+        getattr(self, cat).clear()
         
     def Sum(self):
         self.Val = list(set(self.Base + self.Race + self.Class + self.Milestone + self.Background))
-
 
 class tStat:
     def __init__(self, parent, name, data):
@@ -255,8 +257,9 @@ class tStat:
 
 
 class tVS:
-    def __init__(self, parent, data):
+    def __init__(self, parent, name, data):
         self.parent = parent
+        self.name = name
         self.Race = data["Race"]
         self.Class = data["Class"]
         self.Feat = data["Feat"]
@@ -301,7 +304,7 @@ class Database:
         self.Prof = Box({key: tProf(self, key, d[key]) for key in rules.l.Prof})
         
         d = sheet["Skill"]
-        self.Skill = Box({key: tSkill(self, key, d[key], key) for key in rules.l.Skill})
+        self.Skill = Box({key: tSkill(self, key, d[key]) for key in rules.l.Skill})
         
         self.HP = tHP(self, sheet["HP"])
         

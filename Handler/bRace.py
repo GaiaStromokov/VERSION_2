@@ -1,72 +1,14 @@
 import q
-from Utils.Handler_Utils import *
+from Handler.Utils.funcs import *
+from Handbook.data_files.Races import *
 
-def dTemplate():
-    return Box({
-        "Speed": {"Walk": 0, "Climb": 0, "Swim": 0, "Fly": 0, "Burrow": 0},
-        "Vision": {"Dark": 0, "Blind": 0, "Tremor": 0, "Tru": 0},
-        "Prof": {"Skill": [], "Weapon": [], "Armor": [], "Tool": [], "Lang": []},
-        "Combat": {"Initiative": 0, "HP": 0, "HD": 0},
-        "Features": [],
-        "Caster": None
-    })
-
-def Correct_Merge(End):
-    data = dTemplate()
-    for i in End.Speed.keys(): data.Speed[i] = End.Speed[i]
-    for i in End.Vision.keys(): data.Vision[i] = End.Vision[i]
-    for i in End.Prof.keys(): data.Prof[i] = End.Prof[i]
-    for i in End.Combat.keys(): data.Combat[i] = End.Combat[i]
-    data.Features = End.Features
-    if "Caster" in End: data.Caster = End.Caster
-    return data
-
-class Tagger:
-    def __init__(self, parent):
-        self.parent = parent
-        self.Level = self.parent.L
-        self.PB = self.parent.PB
-        Map = {
-            "Select": self.Select,
-            "Use": self.Use,
-            "Passive": self.Passive,
-            "Spell": self.Spell,
-            "HP": self.HP,
-        }
-        for feature in self.parent.Data.Features:
-            tag = feature.Tag
-            Map[tag](feature)
-
-    def Select(self, feature):
-        if feature["Options"][0] == "0_Wizard":
-            feature["Options"] = q.fTome(Level=0, Caster="Wizard")
-    
-    def Use(self, feature):
-        vUse = feature["Use"]
-        if isinstance(vUse, list): feature["Use"] = [False] * vUse[self.Level]
-        elif isinstance(vUse, int): feature["Use"] = [False] * vUse
-        elif vUse == "PB": feature["Use"] = [False] * self.PB
-    
-        if "lDesc" in feature: feature["Desc"] = feature["lDesc"][str(max(int(lvl) for lvl in feature["lDesc"] if int(lvl) <= self.Level))]
-    
-    
-    def Passive(self, feature):
-        pass
-    
-    def Spell(self, feature):
-        feature["Spells"] = {spell: "Cantrip" if q.Grimoir[spell]["Level"] == 0 else False for spell in feature["Given"].values()}
-        feature.pop("Spell", None)
-    
-    def HP(self, feature):
-        if feature["HP"] == "LEVEL": feature["HP"] = self.Level
-
-    
 class Loader:
-    def __init__(self, parent):
+    def __init__(self, parent, db, Level, PB):
         self.parent = parent
-        self.Level = self.parent.L
-        self.PB = self.parent.PB
-        Map = {
+        self.db = db
+        self.Level = Level
+        self.PB = PB
+        self.Map = {
             "Spell": self.Spell,
             "Select": self.Select,
             "Breath_Weapon": self.Breath_Weapon,
@@ -76,16 +18,14 @@ class Loader:
         }
         
         for feature in self.parent.Data.Features:
-            name = feature.Name.replace(" ", "_")
-            level = feature.Level
-            tag = feature.Tag
-            if self.Level >= level:
-                func = Map.get(tag)
-                if func:
-                    func(feature, name)
+            name = feature["Name"].replace(" ", "_")
+            tag = feature["Tag"]
+            
+            if tag in self.Map:
+                self.Map[tag](feature, name)
 
     def Hplace(self, name, tag):
-        place = q.dbm.git.fRace.setdefault(name, {})
+        place = self.db.Race.Features.setdefault(name, {})
         place["Tag"] = tag
         return place
 
@@ -97,96 +37,115 @@ class Loader:
         return {}
 
     def Spell(self, feature, Name):
-        Place = self.Hplace(Name, feature.Tag)
+        Place = self.Hplace(Name, "Spell")
         past = self.get_past(Name, "Spell")
-        Place["Spells"] = {spell: past.get(spell, state) for spell, state in feature.Spells.items()}
+        Place["Spells"] = {spell: past.get(spell, state) for spell, state in feature["Spells"].items()}
 
     def Select(self, feature, Name):
-        Place = self.Hplace(Name, feature.Tag)
+
+        Place = self.Hplace(Name, "Select")
         past = self.get_past(Name, "Select")
-        Place["Choices"] = feature.Choices
-        Place["Options"] = feature.Options
-        Place["Select"] = (past + [""] * feature.Choices)[:feature.Choices]
-        if "Desc" in feature: Place["Desc"] = feature.Desc
-        if "Multi_Desc" in feature: Place["Multi_Desc"] = feature.Multi_Desc
+        Place["Choices"] = feature["Choices"]
+        Place["Options"] = feature["Options"]
+        Place["Select"] = (past + [""] * feature["Choices"])[:feature["Choices"]]
+        
+        if "Desc" in feature: Place["Desc"] = feature["Desc"]
+        if "Multi_Desc" in feature: Place["Multi_Desc"] = feature["Multi_Desc"]
 
     def Breath_Weapon(self, feature, Name):
-        Color = feature.Color
-        Shape = feature.Shape
-        Type = feature.Type
-        Save = feature.Save
-        Damage = feature.Damage[self.Level]
-        SV = 8 + self.PB + 2
-        Desc = feature.Desc[0].format(**locals())
+        Damage = feature["Damage"]
+        Use = feature["Use"]
+        Mod = self.db.Atr[feature["Save"]].Mod
+        SV = 8 + self.PB + Mod
+        
+        Desc = feature["Desc"][0].format(Damage=Damage, SV=SV)
+        
         Place = self.Hplace(Name, "Use")
         past = self.get_past(Name, "Use")
-        Place["Use"] = (past + [False])[:1]
+        Place["Use"] = (past + Use)[:len(Use)]
         Place["Desc"] = [Desc]
 
     def Use(self, feature, Name):
-        Place = self.Hplace(Name, feature.Tag)
+        Place = self.Hplace(Name, "Use")
         past = self.get_past(Name, "Use")
-        Place["Use"] = (past + feature.Use)[:len(feature.Use)]
-        Place["Desc"] = feature.Desc
+        Place["Use"] = (past + feature["Use"])[:len(feature["Use"])]
+        Place["Desc"] = feature["Desc"]
 
     def HP(self, feature, Name):
         Place = self.Hplace(Name, "Passive")
-        self.parent.Data.Combat.HP = feature.HP
-        Place["Desc"] = feature.Desc
+        Place["Desc"] = feature["Desc"]
 
     def Passive(self, feature, Name):
-        Place = self.Hplace(Name, feature.Tag)
-        Place["Desc"] = feature.Desc
-
-        
+        Place = self.Hplace(Name, "Passive")
+        Place["Desc"] = feature["Desc"]
 
 class bRace:
     def __init__(self, parent):
         self.parent = parent
-
         self.R = None
         self.SR = None
         self.L = None
         self.PB = None
         self.Data = None
         self.Past = None
+    @property
+    def db(self):
+        return self.parent.db
 
     def Config_Vars(self):
-        self.L, self.PB, self.R, self.SR = self.parent.pass_data.Race
+        self.L, self.PB, self.R, self.SR = self.parent.Vis.Race
 
-
-    def Load_Start(self):
+    def Startup(self):
         self.Config_Vars()
         self.Data = {}
-        self.Past = q.dbm.git.fRace
+        self.Past = self.db.Race.Features.copy()
         if not self.R: return
         self.Load_Data()
 
     def Load_Data(self):
-        path = f"Handbook/_Race/{self.R}"
-        Merged = Box(load_json(path, "Base"))
-        if self.SR in ["", "Empty"]: Subrace = dTemplate()
-        else: Subrace = Box(load_json(path, self.SR))
-        Merged = Correct_Merge(Merged)
-        Subrace = Correct_Merge(Subrace)
-        for k in Merged.Speed: Merged.Speed[k] += Subrace["Speed"][k]
-        for k in Merged.Vision: Merged.Vision[k] += Subrace["Vision"][k]
-        for k in Merged.Prof: Merged.Prof[k] = list(set(Merged.Prof[k] + Subrace["Prof"][k]))
-        Merged.Features += Subrace["Features"]
-        self.Data = Box(Merged)
+        self.Data = get_Race_Data(self.R, self.SR, self.L, self.PB)
+        if self.Data: 
+            Loader(self, self.db, self.L, self.PB)
+            self.Push_Data()
+
+    def Push_Data(self):
+        Data = self.Data
+        Place = self.db
         
-        Tagger(self)
-        Loader(self)
-    
+        p = Data.Speed
+        for key, val in p.items():
+            Place.Speed[key].Sit("Race", val)
+
+        p = Data.Vision
+        for key, val in p.items():
+            Place.Vision[key].Sit("Race", val)
+
+        p = Data.Combat.HP
+        Place.HP.Sit("Race", p)
+        
+        p = Data.Combat.Initiative
+        Place.Initiative.Sit("Race", p)
+        
+        p = Data.Prof
+        for key in ["Weapon", "Armor", "Tool", "Lang"]:
+            d = p[key]
+            Place.Prof[key].Clear("Race")
+            Place.Prof[key].Sit("Race", d)
+
+        p = Data.Prof.Skill
+        for skill in Place.Skill:
+            if skill in p: Place.Skill[skill].Sit("Race", "prof", True)
+            else: Place.Skill[skill].Sit("Race", "prof", False)
+
     def New(self):
         self.Config_Vars()
         self.Past = {}
-        q.dbm.db.Race.Features = {}
+        self.db.Race.fClear()
         if not self.R: return
         self.Load_Data()
-    
+
     def Refresh(self):
         self.Config_Vars()
-        self.Past = self.Data.Features
+        self.Past = self.db.Race.Features.copy()
         if not self.R: return
         self.Load_Data()

@@ -2,7 +2,7 @@
     "Core": {
         "Level": 3,
         "Race": "Elf",
-        "Subrace": "",
+        "Subrace": "Shadar_Kai",
         "Class": "Empty",
         "Subclass": "Empty",
         "Background": "Empty"
@@ -41,7 +41,7 @@
     },
     "Vision": {
         "Dark": {
-            "Race": 0,
+            "Race": 60,
             "Class": 0,
             "Feat": 0
         },
@@ -63,7 +63,7 @@
     },
     "Speed": {
         "Walk": {
-            "Race": 0,
+            "Race": 30,
             "Class": 0,
             "Feat": 0
         },
@@ -125,7 +125,10 @@
         },
         "Lang": {
             "Base": [],
-            "Race": [],
+            "Race": [
+                "Common",
+                "Elvish"
+            ],
             "Class": [],
             "Milestone": [],
             "Background": []
@@ -332,7 +335,7 @@
         },
         "Perception": {
             "Race": {
-                "prof": false,
+                "prof": true,
                 "exp": false
             },
             "Class": {
@@ -462,13 +465,29 @@
             "Fey_Ancestry": {
                 "Tag": "Passive",
                 "Desc": [
-                    "You have advantage on saving throws against being charmed, and magic can't put you to sleep."
+                    "Advantage vs Charm, Immune to magical sleep."
                 ]
             },
             "Trance": {
                 "Tag": "Passive",
                 "Desc": [
-                    "You don't need to sleep. Instead, you meditate deeply, remaining semiconscious, for 4 hours a day."
+                    "Meditate 4 hours instead of sleep."
+                ]
+            },
+            "Necrotic_Resistance": {
+                "Tag": "Passive",
+                "Desc": [
+                    "Resistance to Necrotic damage."
+                ]
+            },
+            "Blessing_of_the_Raven_Queen": {
+                "Tag": "Use",
+                "Use": [
+                    false,
+                    false
+                ],
+                "Desc": [
+                    "(Bonus) Teleport 30ft. Gain Resistance to all dmg until start of next turn."
                 ]
             }
         }

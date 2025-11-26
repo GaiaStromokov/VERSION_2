@@ -3,6 +3,10 @@ from Manager.Database import Database
 from colorist import green, red
 from box import Box
 import inspect
+import re
+from Handler.bRace import bRace
+from Frontend.Sheet import pat_Sheet
+from Frontend.Race import pat_Race
 
 def register_callback(key):
     def wrapper(func):
@@ -13,14 +17,40 @@ def register_callback(key):
 class Populate:
     def __init__(self, parent):
         self.parent = parent
+        self.Sheet = pat_Sheet(parent)
+        self.R = pat_Race(parent)
+        
+    @property
+    def db(self): return self.parent.db
+
+    @property
+    def Startup(self): 
+        self.Basic
+        self.Complicated
     
     @property
-    def db(self):
-        return self.parent.db
+    def Basic(self): 
+        self.Sheet.All()
+
+    @property
+    def Complicated(self): 
+        self.R.Refresh()
+
+    @property
+    def Level(self): 
+        self.Basic
+        self.R.Refresh()
+        
+        
+    @property
+    def Race(self): 
+        self.Basic
+        self.R.Refresh()
 
 class cb_Base:
-    def __init__(self, parent):
+    def __init__(self, parent, populate):
         self.parent = parent
+        self.pat = populate
     
     @property
     def db(self):
@@ -64,15 +94,23 @@ class cb_Rest(cb_Base):
 class cb_Core(cb_Base):
     @register_callback("mod_Level")
     def Level(self, sender, inp, udata):
-        self.db.Core.Level.Sit(inp)
+        data = udata[0]
+        self.db.Core.Level.Sit(data)
+        self.parent.dbm.Race.Refresh()
+        self.pat.Level
 
     @register_callback("mod_Race")
     def mod_Race(self, sender, inp, udata):
+        self.db.Core.Subrace.Sit("")
         self.db.Core.Race.Sit(inp)
+        self.parent.dbm.Race.New()
+        self.pat.Race
 
     @register_callback("mod_Subrace")
     def mod_Subrace(self, sender, inp, udata):
         self.db.Core.Subrace.Sit(inp)
+        self.parent.dbm.Race.New()
+        self.pat.Race
 
     @register_callback("mod_Background")
     def mod_Background(self, sender, inp, udata):
@@ -94,6 +132,7 @@ class cb_Race(cb_Base):
     def Feature_Select(self, sender, inp, udata):
         key, index = udata
         self.db.Race.fSit_Select(key, index, inp)
+        self.pat.Race
 
     @register_callback("Race Feature Use")
     def Feature_Use(self, sender, inp, udata):
@@ -116,14 +155,15 @@ class cb_Atr(cb_Base):
 class CBH:
     def __init__(self, parent):
         self.parent = parent
+        populate = self.parent.populate
         
-        self.cb_closet = cb_Closet(self)
-        self.cb_rest = cb_Rest(self)
-        self.cb_health = cb_Health(self)
-        self.cb_core = cb_Core(self)
-        self.cb_race = cb_Race(self)
-        self.cb_class = cb_Class(self)
-        self.cb_atr = cb_Atr(self)
+        self.cb_closet = cb_Closet(self, populate)
+        self.cb_rest = cb_Rest(self, populate)
+        self.cb_health = cb_Health(self, populate)
+        self.cb_core = cb_Core(self, populate)
+        self.cb_race = cb_Race(self, populate)
+        self.cb_class = cb_Class(self, populate)
+        self.cb_atr = cb_Atr(self, populate)
 
         self.Input_map = {}
         for name, obj in inspect.getmembers(self):
@@ -134,6 +174,9 @@ class CBH:
                     if hasattr(func, "_callback_key")
                 })
 
+    @property
+    def dbm(self):
+        return self.parent
     def sit(self, sender, data, udata):
         if not udata: return
         key, *params = udata
@@ -141,28 +184,60 @@ class CBH:
         if not func:
             red(f"[CBH] Unknown key: {key}")
             return
-        # print(sender, key, params)
+        print(f"Sit: sender - {sender}, key - {key}, params - {params}")
         func(sender, data, params)
 
     def callback_func(self):
         return self.sit
 
-class pass_data:
+class Validate:
     def __init__(self, parent):
         self.parent = parent
+    
+    @property
+    def Class(self):
+        Class, Level = self.parent.Vis.v_Class
+        
+        class_exception_map = {1: ["Cleric, Warlock"], 2: ["Wizard"]}
+        return Level >= 3 or Class in class_exception_map.get(Level, [])
+    
+class Vis:
+    def __init__(self, parent):
+        self.parent = parent
+        self.db = parent.db
     
     @property
     def Race(self):
         data = self.db.Core
         return data.Level.Val, data.Level.PB, data.Race.Val, data.Subrace.Val;
 
+    @property
+    def v_Class(self):
+        data = self.db.Core
+        return data.Class.Val, data.Level.Val
+
+    @property
+    def upd_Sheet(self):
+        data = self.db.Core
+        return data.Level.Val, data.Level.PB, data.Race.Val, data.Subrace.Val, data.Class.Val, data.Subclass.Val, data.Background.Val;
+
+    def Description(self, Desc):
+            pb = self.db.Core.Level.PB
+            
+            Desc = re.sub(r'(\d*)PB', lambda m: str(int(m.group(1) or 1) * pb), Desc)
+            Desc = re.sub(r'\b(STR|DEX|CON|INT|WIS|CHA)\b', lambda m: str(self.db.Atr[m.group(1)].Mod), Desc)
+            
+            return Desc
 class DBM:
     def __init__(self):
         self.db = Database()
         self.populate = Populate(self)
         self.cbh = CBH(self)
         self.sit = self.cbh.sit
-        self.pass_data = pass_data(self)
+        self.Vis = Vis(self)
+        self.Validate = Validate(self)
+        
+        self.Race = bRace(self)
 
     @property
     def Save_out(self):
@@ -171,4 +246,5 @@ class DBM:
 
     @property
     def Startup(self):
-        pass
+        self.Race.Startup()
+        self.populate.Startup

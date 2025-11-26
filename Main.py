@@ -1,8 +1,8 @@
 from dearpygui.dearpygui import *
 import q
-from Handler.Database_Manager import DBM
+from Manager.Database_Manager import DBM
 from Handbook.Rules import Rules
-from Handler.Item_Manager import Mitem
+from Manager.Item_Manager import Mitem
 from Frontend.On_Start import ui_start
 
 get_path = q.get_path
@@ -23,6 +23,7 @@ def startup():
     q.dbm=DBM()
     q.cbh = q.dbm.cbh.callback_func()
     ui_start()
+    q.dbm.Startup
 
 
 def main():

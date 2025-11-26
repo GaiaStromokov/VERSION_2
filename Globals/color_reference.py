@@ -39,5 +39,5 @@ class Coler:
     Text = Text.Base
     Header = Header
     Item = Item
-    sSchool = School
-    iRarity = Rarity
+    School = School
+    Rarity = Rarity
