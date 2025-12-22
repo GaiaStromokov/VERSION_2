@@ -1,5 +1,5 @@
 from dearpygui.dearpygui import *
-import q
+import q, re, math
 from colorist import *
 Coler = q.Coler
 Grimoir = q.Grimoir
@@ -107,3 +107,18 @@ def spell_detail(spell):
     with group(horizontal=False):
         add_text("Description", color=Coler.Header.G)
         add_text(data["Desc"], color=Coler.Text, wrap=420)
+
+pat = re.compile(r"\{([^{}]+)\}")
+def dres(text):
+    core = q.dbm.db.Core["Level"]
+    Atr = q.dbm.db.Atr
+    local = {
+        "PB":core.PB,
+        "LEVEL":core.Val,
+        "STR":Atr["STR"].Mod,
+        "DEX":Atr["DEX"].Mod,
+        "CON":Atr["CON"].Mod,
+        "INT":Atr["INT"].Mod,
+        "WIS":Atr["WIS"].Mod,
+        "CHA":Atr["CHA"].Mod}
+    return pat.sub(lambda m: str(math.ceil(eval(m.group(1), {}, local))), text)

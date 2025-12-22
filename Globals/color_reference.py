@@ -4,6 +4,7 @@ class Text:
 
 class Header:
     C = (0, 255, 255)    #cyan
+    B = (0,191,255)
     G = (102, 255, 102)  # Bright green
     HP = (255, 102, 178)  # Hot pink
 
@@ -41,3 +42,7 @@ class Coler:
     Item = Item
     School = School
     Rarity = Rarity
+
+    @staticmethod
+    def Toggle(value):
+        return Item.T if value else Item.F

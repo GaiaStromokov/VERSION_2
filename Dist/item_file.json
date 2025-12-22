@@ -8,7 +8,8 @@
         "Reach": "5",
         "Weight": 2,
         "Cost": 1,        
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
     },
     "Dagger": {
         "Slot": "Weapon",
@@ -20,7 +21,8 @@
         "Range": "20/60",
         "Weight": 1,
         "Cost": 2,        
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Dart": {
@@ -32,7 +34,8 @@
         "Range": "20/60",
         "Weight": 0.25,
         "Cost": 0.05,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Handaxe": {
@@ -45,7 +48,8 @@
         "Range": "20/60",
         "Weight": 2,
         "Cost": 2,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Javelin": {
@@ -58,7 +62,8 @@
         "Range": "30/120",
         "Weight": 2,
         "Cost": 0.5,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Light_Hammer": {
@@ -71,7 +76,8 @@
         "Range": "20/60",
         "Weight": 2,
         "Cost": 2,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Mace": {
@@ -83,7 +89,8 @@
         "Reach": "5",
         "Weight": 4,
         "Cost": 5,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Quarterstaff": {
@@ -96,7 +103,8 @@
         "Reach": "5",
         "Weight": 4,
         "Cost": 0.2,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Sickle": {
@@ -108,7 +116,8 @@
         "Reach": "5",
         "Weight": 2,
         "Cost": 1,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Spear": {
@@ -121,7 +130,8 @@
         "Range": "20/60",
         "Weight": 3,
         "Cost": 1,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Light_Crossbow": {
@@ -133,7 +143,8 @@
         "Range": "80/320",
         "Weight": 5,
         "Cost": 25,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Shortbow": {
@@ -145,7 +156,8 @@
         "Range": "80/320",
         "Weight": 2,
         "Cost": 25,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Sling": {
@@ -157,7 +169,8 @@
         "Range": "30/120",
         "Weight": 0,
         "Cost": 0.1,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Battle_axe": {
@@ -169,7 +182,8 @@
         "Reach": "5",
         "Weight": 4,
         "Cost": 10,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Flail": {
@@ -181,7 +195,8 @@
         "Reach": "5",
         "Weight": 2,
         "Cost": 10,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Glaive": {
@@ -193,7 +208,8 @@
         "Reach": "10",
         "Weight": 6,
         "Cost": 20,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Great_axe": {
@@ -205,7 +221,8 @@
         "Reach": "5",
         "Weight": 7,
         "Cost": 30,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Greatsword": {
@@ -217,7 +234,8 @@
         "Reach": "5",
         "Weight": 6,
         "Cost": 50,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Halberd": {
@@ -229,7 +247,8 @@
         "Reach": "10",
         "Weight": 6,
         "Cost": 20,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Lance": {
@@ -241,7 +260,8 @@
         "Reach": "10",
         "Weight": 6,
         "Cost": 10,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Longsword": {
@@ -254,7 +274,8 @@
         "Reach": "5",
         "Weight": 3,
         "Cost": 15,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Maul": {
@@ -266,7 +287,8 @@
         "Reach": "5",
         "Weight": 10,
         "Cost": 10,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Morningstar": {
@@ -278,7 +300,8 @@
         "Reach": "5",
         "Weight": 4,
         "Cost": 15,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Pike": {
@@ -290,7 +313,8 @@
         "Reach": "10",
         "Weight": 18,
         "Cost": 5,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Rapier": {
@@ -302,7 +326,8 @@
         "Reach": "5",
         "Weight": 2,
         "Cost": 25,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Scimitar": {
@@ -314,7 +339,8 @@
         "Reach": "5",
         "Weight": 3,
         "Cost": 25,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Shortsword": {
@@ -326,7 +352,8 @@
         "Reach": "5",
         "Weight": 2,
         "Cost": 10,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Trident": {
@@ -339,7 +366,8 @@
         "Range": "20/60",
         "Weight": 4,
         "Cost": 5,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "War_Pick": {
@@ -351,7 +379,8 @@
         "Reach": "5",
         "Weight": 2,
         "Cost": 5,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Warhammer": {
@@ -363,7 +392,8 @@
         "Reach": "5",
         "Weight": 2,
         "Cost": 15,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Whip": {
@@ -375,7 +405,8 @@
         "Reach": "10",
         "Weight": 3,
         "Cost": 2,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Blowgun": {
@@ -387,7 +418,8 @@
         "Range": "25/100",
         "Weight": 1,
         "Cost": 10,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Hand_Crossbow": {
@@ -399,7 +431,8 @@
         "Range": "30/120",
         "Weight": 3,
         "Cost": 75,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Heavy_Crossbow": {
@@ -411,7 +444,8 @@
         "Range": "100/400",
         "Weight": 18,
         "Cost": 50,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Long_bow": {
@@ -423,7 +457,8 @@
         "Range": "150/600",
         "Weight": 2,
         "Cost": 50,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Net": {
@@ -435,7 +470,8 @@
         "Range": "5/15",
         "Weight": 3,
         "Cost": 1,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Padded": {
@@ -447,7 +483,8 @@
         "Stealth_Dis": true,
         "Weight": 8,
         "Cost": 5,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Leather": {
@@ -459,7 +496,8 @@
         "Stealth_Dis": false,
         "Weight": 10,
         "Cost": 10,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Studded_Leather": {
@@ -471,7 +509,8 @@
         "Stealth_Dis": false,
         "Weight": 13,
         "Cost": 45,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
     },
     "Hide": {
         "Slot": "Armor",
@@ -482,7 +521,8 @@
         "Stealth_Dis": false,
         "Weight": 12,
         "Cost": 10,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Chain_Shirt": {
@@ -494,7 +534,8 @@
         "Stealth_Dis": false,
         "Weight": 20,
         "Cost": 50,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Scale_Mail": {
@@ -506,7 +547,8 @@
         "Stealth_Dis": true,
         "Weight": 45,
         "Cost": 50,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Breastplate": {
@@ -518,7 +560,8 @@
         "Stealth_Dis": false,
         "Weight": 20,
         "Cost": 400,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Half_Plate": {
@@ -530,7 +573,8 @@
         "Stealth_Dis": true,
         "Weight": 40,
         "Cost": 750,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Ring_Mail": {
@@ -542,7 +586,8 @@
         "Stealth_Dis": true,
         "Weight": 40,
         "Cost": 30,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Chain_Mail": {
@@ -554,7 +599,8 @@
         "Stealth_Dis": true,
         "Weight": 55,
         "Cost": 75,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Splint": {
@@ -566,7 +612,8 @@
         "Stealth_Dis": true,
         "Weight": 60,
         "Cost": 200,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Plate": {
@@ -578,17 +625,19 @@
         "Stealth_Dis": true,
         "Weight": 65,
         "Cost": 1500,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     },
     "Shield": {
-        "Slot": "Shield",
+        "Slot": "Armor",
         "Cat": ["Shield"],
         "Prop": [],
         "AC": 2,
         "Weight": 6,
         "Cost": 10,
-        "Attune": false
+        "Attune": false,
+        "Rarity": [0,1,2,3]
 
     }
 }

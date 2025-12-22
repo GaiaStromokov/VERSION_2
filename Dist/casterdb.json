@@ -1,0 +1,21 @@
+    "Caster": {
+        "Spell_Abil": "",
+        "Prep_Type": "",
+        "Caster_Type": "",
+        "L_Slot": [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ],
+        "L_Max_Spell_Level": [],
+        "L_Cantrips_Available": [],
+        "L_Spells_Available": [],
+        "Slot": []
+    }

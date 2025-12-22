@@ -50,7 +50,7 @@ class collect_dicts:
         self.Class = Box({
             "": [""],
             "Empty": [""],
-            "Fighter": ["Champion", "Battle Master", "Eldrich_Knight", "Samuri"],
+            "Fighter": ["Champion", "Battle Master", "Eldritch_Knight", "Samuri"],
             "Wizard": ["Abjuration", "Conjuration"] 
         })
         
@@ -75,6 +75,8 @@ class collect_lists:
         self.Game = [k for k, v in self.d.Tool.items() if v == "Game"]
         self.Music = [k for k, v in self.d.Tool.items() if v == "Music"]
         self.Lang = list(self.d.Lang.keys())
+        self.Armor = ["Light", "Medium", "Heavy", "Shield"]
+        
         
         self.Brand = ["Traits", "Ideals", "Bonds", "Flaws"]
         self.Vision = ["Dark", "Blind","Tremor","Tru"]

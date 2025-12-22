@@ -2,7 +2,7 @@ from dearpygui.dearpygui import *
 import q
 from Manager.Database_Manager import DBM
 from Handbook.Rules import Rules
-from Manager.Item_Manager import Mitem
+from Manager.Item_Manager import ItemLibrary
 from Frontend.On_Start import ui_start
 
 get_path = q.get_path
@@ -18,7 +18,7 @@ def on_exit_callback():
 
 
 def startup():
-    q.w = Mitem()
+    q.w = ItemLibrary()
     q.rules = Rules()
     q.dbm=DBM()
     q.cbh = q.dbm.cbh.callback_func()
@@ -31,7 +31,7 @@ def main():
     create_context()
     with font_registry(): font_choice = add_font(get_path("utils", "Helvetica.ttf"), 13)
     configure_app(init_file=get_path("utils", "config_save.ini"), docking=True, docking_space=True)
-    create_viewport(title="rpg", width=1350, height=880)
+    create_viewport(title="rpg", width=1450, height=880)
     set_viewport_pos((20, 20))
     set_exit_callback(on_exit_callback)
     bind_font(font_choice)

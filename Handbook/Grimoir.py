@@ -6593,12 +6593,12 @@ def fTome(**kwargs):
         'Component': 'Components',
         'Caster': 'List'
     }
-   
+
     def matches(value, attribute_value):
         if isinstance(attribute_value, list):
             return value in attribute_value
         return attribute_value == value
-   
+
     return [
         name
         for name, data in Grimoir.items()

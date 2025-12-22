@@ -4,24 +4,21 @@ import q
 def Resolve_Select(data, parent, Level, PB):
     if data["Options"][0] == "0_Wizard":
         data["Options"] = q.fTome(Level=0, Caster="Wizard")
-    data["Choices"] = data["Choices"]
-
 
 def Resolve_Breath(data, parent, Level, PB):
-    usage = [0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4][Level]
-    damage = [0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5][Level]
+    usage = [0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4][Level]
+    damage = [0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5][Level]
     data["Use"] = [False] * usage
     data["Damage"] = damage
 
 def Resolve_Use(data, parent, Level, PB):
     rule = data["Use"]
-
+    count = 0
     if isinstance(rule, list):  count = rule[Level]
-    elif isinstance(rule, int): count = rule
-    elif isinstance(rule, str): 
+    if isinstance(rule, int): count = rule
+    if isinstance(rule, str): 
         if rule == "PB":  count = PB
-
-    else: count = 0
+        
     data["Use"] = [False] * count
 
     if "lDesc" in data:
@@ -34,9 +31,10 @@ def Resolve_HP(data, parent, Level, PB):
 
 def Resolve_Spell(data, parent, Level, PB):
     data["Spells"] = {}
-    for spell in data["Given"].values():
-        state = "Cantrip" if q.Grimoir[spell]["Level"] == 0 else False
-        data["Spells"][spell] = state
+    for req, spell in data["Given"].items():
+        if req <= Level:
+            state = "Cantrip" if q.Grimoir[spell]["Level"] == 0 else False
+            data["Spells"][spell] = state
 
 def Resolve_Passive(data, parent, Level, PB):
     pass
@@ -52,10 +50,10 @@ Feature_Map = {
 
 class Race_Template:
     def __init__(self):
-        self.Speed = Box({"Walk": 0, "Climb": 0, "Swim": 0, "Fly": 0, "Burrow": 0})
-        self.Vision = Box({"Dark": 0, "Blind": 0, "Tremor": 0, "Tru": 0})
-        self.Prof = Box({"Skill": [], "Weapon": [], "Armor": [], "Tool": [], "Lang": []})
-        self.Combat = Box({"Initiative": 0, "HP": 0, "HD": 0})
+        self.Speed = {"Walk": 0, "Climb": 0, "Swim": 0, "Fly": 0, "Burrow": 0}
+        self.Vision = {"Dark": 0, "Blind": 0, "Tremor": 0, "Tru": 0}
+        self.Prof = {"Skill": [], "Weapon": [], "Armor": [], "Tool": [], "Lang": []}
+        self.Combat = {"Initiative": 0, "HP": 0, "HD": 0}
         self.Features = [] 
         
     def add_feature(self, meta, Desc=None, **kwargs):
@@ -64,6 +62,7 @@ class Race_Template:
         if Desc: data["Desc"] = Desc
         data.update(kwargs)
         self.Features.append(data)
+
 
 Dragonborn_map = {
     "Black":  ["Acid",      "Line", "DEX"],
@@ -81,8 +80,8 @@ Dragonborn_map = {
 class Dragonborn(Race_Template):
     def __init__(self): 
         super().__init__()
-        self.Speed.Walk = 30
-        self.Prof.Lang = ["Common", "Draconic"]
+        self.Speed["Walk"] = 30
+        self.Prof["Lang"] = ["Common", "Draconic"]
 
     def _breath_weapon(self, spec):
         data = Dragonborn_map[spec]
@@ -156,47 +155,47 @@ class Dragonborn_White(Dragonborn):
         self.Features.append(self._resistance("White"))
 
 class Dwarf(Race_Template):
-    def __init__(self): 
+    def __init__(self):
         super().__init__()
-        self.Speed.Walk = 25
-        self.Vision.Dark = 60
-        self.Prof.Lang = ["Common", "Dwarvish"]
-        self.Prof.Weapon = ["Battleaxe", "Handaxe", "Light Hammer", "Warhammer"]
+        self.Speed["Walk"] = 25
+        self.Vision["Dark"] = 60
+        self.Prof["Lang"] = ["Common", "Dwarvish"]
+        self.Prof["Weapon"] = ["Battleaxe", "Handaxe", "Light Hammer", "Warhammer"]
         self.add_feature(meta=["Dwarven Resilience", 1, "Passive"], Desc=["Advantage on Poison saves, Resistance to Poison damage."])
-        self.add_feature(meta=["Stonecunning", 1, "Passive"], Desc=["Add 2PB to History checks on stonework."])
+        self.add_feature(meta=["Stonecunning", 1, "Passive"], Desc=["Add {PB} to History checks on stonework."])
 
 class Dwarf_Hill(Dwarf):
-    def __init__(self): 
+    def __init__(self):
         super().__init__()
-        self.add_feature(meta=["Dwarven Toughness", 1, "HP"], HP="LEVEL", Desc=["HP Max increases by 1 per level."])
+        self.add_feature(meta=["Dwarven Toughness", 1, "HP"], HP="LEVEL", Desc=["HP Max increases by {LEVEL}."])
 
 class Dwarf_Mountain(Dwarf):
     def __init__(self): 
         super().__init__()
-        self.Prof.Armor = ["Light", "Medium"]
+        self.Prof["Armor"] = ["Light", "Medium"]
 
 class Elf(Race_Template):
     def __init__(self): 
         super().__init__()
-        self.Speed.Walk = 30
-        self.Vision.Dark = 60
-        self.Prof.Skill = ["Perception"]
-        self.Prof.Lang = ["Common", "Elvish"]
+        self.Speed["Walk"] = 30
+        self.Vision["Dark"] = 60
+        self.Prof["Skill"] = ["Perception"]
+        self.Prof["Lang"] = ["Common", "Elvish"]
         self.add_feature(meta=["Fey Ancestry", 1, "Passive"], Desc=["Advantage vs Charm, Immune to magical sleep."])
         self.add_feature(meta=["Trance", 1, "Passive"], Desc=["Meditate 4 hours instead of sleep."])
 
 class Elf_Drow(Elf):
     def __init__(self): 
         super().__init__()
-        self.Vision.Dark = 120
-        self.Prof.Weapon = ["Rapier", "Shortsword", "Hand Crossbow"]
+        self.Vision["Dark"] = 120
+        self.Prof["Weapon"] = ["Rapier", "Shortsword", "Hand Crossbow"]
         self.add_feature(meta=["Sunlight Sensitivity", 1, "Passive"], Desc=["Disadvantage on Attack/Perception in direct sunlight."])
-        self.add_feature(meta=["Drow Magic", 1, "Spell"], Given={"1": "Dancing Lights", "3": "Faerie Fire", "5": "Darkness"})
+        self.add_feature(meta=["Drow Magic", 1, "Spell"], Given={ 1: "Dancing Lights", 3: "Faerie Fire", 5: "Darkness"})
 
 class Elf_High(Elf):
     def __init__(self): 
         super().__init__()
-        self.Prof.Weapon = ["Longsword", "Shortsword", "Shortbow", "Longbow"]
+        self.Prof["Weapon"] = ["Longsword", "Shortsword", "Shortbow", "Longbow"]
         self.add_feature(meta=["Cantrip", 1, "Select"], Options=["0_Wizard"], Choices=1)
 
 class Elf_Shadar_Kai(Elf):
@@ -207,8 +206,8 @@ class Elf_Shadar_Kai(Elf):
 class Elf_Wood(Elf):
     def __init__(self): 
         super().__init__()
-        self.Speed.Walk = 35
-        self.Prof.Weapon = ["Longsword", "Shortsword", "Shortbow", "Longbow"]
+        self.Speed["Walk"] = 35
+        self.Prof["Weapon"] = ["Longsword", "Shortsword", "Shortbow", "Longbow"]
         self.add_feature(meta=["Mask of the Wild", 1, "Passive"], Desc=["Can hide in light obscuration (foliage, rain, etc)."])
 
 class Empty(Race_Template):
@@ -217,31 +216,31 @@ class Empty(Race_Template):
 class Gnome(Race_Template):
     def __init__(self): 
         super().__init__()
-        self.Speed.Walk = 25
-        self.Vision.Dark = 60
-        self.Prof.Lang = ["Common", "Gnomish"]
-        self.add_feature(meta=["Gnome Cunning", 1, "Passive"], Desc=["Advantage on INT/WIS/CHA saves vs Magic."])
+        self.Speed["Walk"] = 25
+        self.Vision["Dark"] = 60
+        self.Prof["Lang"] = ["Common", "Gnomish"]
+        self.add_feature(meta=["Gnome Cunning", 1, "Passive"], Desc=["Advantage on Int/Wis/Cha saves vs Magic."])
 
 class Gnome_Forest(Gnome):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Natural Illusionist", 1, "Spell"], Given={"1": "Minor Illusion"})
+        self.add_feature(meta=["Natural Illusionist", 1, "Spell"], Given={ 1: "Minor Illusion"})
         self.add_feature(meta=["Speak with Small Beasts", 1, "Passive"], Desc=["Communicate simple ideas with Small beasts."])
 
 class Gnome_Rock(Gnome):
     def __init__(self): 
         super().__init__()
-        self.Prof.Tool.append("Tinker's Tools")
+        self.Prof["Tool"].append("Tinker's Tools")
         self.add_feature(meta=["Artificer's Lore", 1, "Passive"], Desc=["Add 2PB to History checks on magic/tech items."])
         self.add_feature(meta=["Tinker", 1, "Select"], Desc=["Construct Tiny clockwork device (1hr, 10gp, AC 5, 1hp). Lasts 24h. Max 3."], Choices=1, Options=["Clockwork Toy", "Fire Starter", "Music Box"], Multi_Desc={"Clockwork Toy": "Moves 5ft random direction, makes noise.", "Fire Starter": "Action to produce miniature flame.", "Music Box": "Plays single song."})
 
 class Half_Orc(Race_Template):
     def __init__(self): 
         super().__init__()
-        self.Speed.Walk = 30
-        self.Vision.Dark = 60
-        self.Prof.Skill = ["Intimidation"]
-        self.Prof.Lang = ["Common", "Orc"]
+        self.Speed["Walk"] = 30
+        self.Vision["Dark"] = 60
+        self.Prof["Skill"] = ["Intimidation"]
+        self.Prof["Lang"] = ["Common", "Orc"]
         self.add_feature(meta=["Relentless Endurance", 1, "Passive"], Desc=["Drop to 1HP instead of 0HP once per Long Rest."])
         self.add_feature(meta=["Savage Attacks", 1, "Passive"], Desc=["Crit with melee weapon adds one extra damage die."])
 
@@ -251,9 +250,9 @@ class Half_Orc_Standard(Half_Orc):
 class Halfling(Race_Template):
     def __init__(self): 
         super().__init__()
-        self.Speed.Walk = 25
-        self.Prof.Lang = ["Common", "Halfling"]
-        self.add_feature(meta=["Lucky", 1, "Passive"], Desc=["Reroll 1s on d20 (Attack/Check/Save). Must use new roll."])
+        self.Speed["Walk"] = 25
+        self.Prof["Lang"] = ["Common", "Halfling"]
+        self.add_feature(meta=["Lucky", 1, "Passive"], Desc=["Reroll 1s on a roll. Must use new roll."])
         self.add_feature(meta=["Brave", 1, "Passive"], Desc=["Advantage on saves vs Frightened."])
         self.add_feature(meta=["Halfling Nimbleness", 1, "Passive"], Desc=["Move through space of creatures larger than you."])
 
@@ -268,14 +267,16 @@ class Halfling_Stout(Halfling):
         self.add_feature(meta=["Stout Resilience", 1, "Passive"], Desc=["Advantage on Poison saves, Resistance to Poison damage."])
 
 class Harengon(Race_Template):
-    def __init__(self): 
+    def __init__(self):
         super().__init__()
-        self.Speed.Walk = 30
-        self.Prof.Skill = ["Perception"]
-        self.Prof.Lang = ["Common"]
-        self.add_feature(meta=["Hare-Trigger", 1, "Passive"], Desc=["Add PB to Initiative."])
-        self.add_feature(meta=["Lucky Footwork", 1, "Passive"], Desc=["(Reaction) On failed DEX save, add 1d4."])
-        self.add_feature(meta=["Rabbit Hop", 1, "Use"], Use="PB", Desc=["(Bonus) Jump 5PB ft, no Opportunity Attacks."])
+        self.Speed["Walk"] = 30
+        self.Prof["Skill"] = ["Perception"]
+        self.Prof["Lang"] = ["Common"]
+        self.add_feature(meta=["Hare-Trigger", 1, "Passive"], Desc=["Add {PB} to Initiative."])
+        self.add_feature(meta=["Lucky Footwork", 1, "Passive"], Desc=["(Reaction) On failed DEX save, add {PB}."])
+        self.add_feature(meta=["Rabbit Hop", 1, "Use"], Use="PB", Desc=["(Bonus) Jump {PB*5} ft, no Opportunity Attacks."])
+
+
 
 class Harengon_Standard(Harengon):
     def __init__(self): super().__init__()
@@ -283,8 +284,8 @@ class Harengon_Standard(Harengon):
 class Human(Race_Template):
     def __init__(self): 
         super().__init__()
-        self.Speed.Walk = 30
-        self.Prof.Lang = ["Common"]
+        self.Speed["Walk"] = 30
+        self.Prof["Lang"] = ["Common"]
 
 class Human_Standard(Human):
     def __init__(self): super().__init__()
@@ -292,55 +293,55 @@ class Human_Standard(Human):
 class Tiefling(Race_Template):
     def __init__(self): 
         super().__init__()
-        self.Speed.Walk = 30
-        self.Vision.Dark = 60
-        self.Prof.Lang = ["Common", "Infernal"]
+        self.Speed["Walk"] = 30
+        self.Vision["Dark"] = 60
+        self.Prof["Lang"] = ["Common", "Infernal"]
         self.add_feature(meta=["Hellish Resistance", 1, "Passive"], Desc=["Resistance to Fire damage."])
 
 class Tiefling_Asmodeus(Tiefling):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Infernal Legacy", 1, "Spell"], Given={"1": "Thaumaturgy", "3": "Hellish Rebuke", "5": "Darkness"})
+        self.add_feature(meta=["Infernal Legacy", 1, "Spell"], Given={ 1: "Thaumaturgy", 3: "Hellish Rebuke", 5: "Darkness"})
 
 class Tiefling_Baalzebul(Tiefling):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Legacy of Maladomini", 1, "Spell"], Given={"1": "Thaumaturgy", "3": "Ray of Sickness", "5": "Crown of Madness"})
+        self.add_feature(meta=["Legacy of Maladomini", 1, "Spell"], Given={ 1: "Thaumaturgy", 3: "Ray of Sickness", 5: "Crown of Madness"})
 
 class Tiefling_Dispater(Tiefling):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Legacy of Dis", 1, "Spell"], Given={"1": "Thaumaturgy", "3": "Disguise Self", "5": "Detect Thoughts"})
+        self.add_feature(meta=["Legacy of Dis", 1, "Spell"], Given={ 1: "Thaumaturgy", 3: "Disguise Self", 5: "Detect Thoughts"})
 
 class Tiefling_Fierna(Tiefling):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Legacy of Phlegethos", 1, "Spell"], Given={"1": "Friends", "3": "Charm Person", "5": "Suggestion"})
+        self.add_feature(meta=["Legacy of Phlegethos", 1, "Spell"], Given={ 1: "Friends", 3: "Charm Person", 5: "Suggestion"})
 
 class Tiefling_Glasya(Tiefling):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Legacy of Malbolge", 1, "Spell"], Given={"1": "Minor Illusion", "3": "Disguise Self", "5": "Invisibility"})
+        self.add_feature(meta=["Legacy of Malbolge", 1, "Spell"], Given={ 1: "Minor Illusion", 3: "Disguise Self", 5: "Invisibility"})
 
 class Tiefling_Levistus(Tiefling):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Legacy of Stygia", 1, "Spell"], Given={"1": "Ray of Frost", "3": "Armor of Agathys", "5": "Darkness"})
+        self.add_feature(meta=["Legacy of Stygia", 1, "Spell"], Given={ 1: "Ray of Frost", 3: "Armor of Agathys", 5: "Darkness"})
 
 class Tiefling_Mammon(Tiefling):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Legacy of Minauros", 1, "Spell"], Given={"1": "Mage Hand", "3": "Tenser's Floating Disk", "5": "Arcane Lock"})
+        self.add_feature(meta=["Legacy of Minauros", 1, "Spell"], Given={ 1: "Mage Hand", 3: "Tenser's Floating Disk", 5: "Arcane Lock"})
 
 class Tiefling_Mephistopheles(Tiefling):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Legacy of Cania", 1, "Spell"], Given={"1": "Mage Hand", "3": "Burning Hands", "5": "Flame Blade"})
+        self.add_feature(meta=["Legacy of Cania", 1, "Spell"], Given={ 1: "Mage Hand", 3: "Burning Hands", 5: "Flame Blade"})
 
 class Tiefling_Zariel(Tiefling):
     def __init__(self): 
         super().__init__()
-        self.add_feature(meta=["Legacy of Avernus", 1, "Spell"], Given={"1": "Thaumaturgy", "3": "Searing Smite", "5": "Branding Smite"})
+        self.add_feature(meta=["Legacy of Avernus", 1, "Spell"], Given={1: "Thaumaturgy", 3: "Searing Smite", 5: "Branding Smite"})
 
 Catalog = {
     "Dragonborn": {

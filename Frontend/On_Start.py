@@ -14,13 +14,13 @@ def h_Atr_Row(stat: str):
     value_w = sz.Atr_Row.Val.w
     with group(horizontal=True):
         add_button(label=stat, enabled=False, width=label_w)
-        add_button(label="", enabled=False, width=value_w, tag=tag.atr.sum(stat))
+        add_button(label="", enabled=False, width=value_w, tag=tag.atr.val(stat))
         add_button(label="", enabled=False, width=value_w, tag=tag.atr.mod(stat))
-    with popup(tag.atr.sum(stat), mousebutton=mvMouseButton_Left):
+    with popup(tag.atr.val(stat), mousebutton=mvMouseButton_Left):
         with group(horizontal=True):
             add_button(label="Base", enabled=False, width=label_w)
             add_combo(items=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], default_value="", width=value_w, no_arrow_button=True, user_data=["Base_Atr", stat], callback=q.cbh, tag=tag.atr.select(stat))
-    with tooltip(tag.atr.sum(stat)):
+    with tooltip(tag.atr.val(stat)):
         for source in ["Base", "Race", "Feat"]:
             with group(horizontal=True):
                 add_button(label=source, enabled=False, width=label_w)
@@ -36,7 +36,7 @@ def h_Skill_Row(skill: str):
         add_checkbox(default_value=False, enabled=False, user_data=[], callback=q.cbh, tag=tag.skill.toggle(skill))
         add_button(label="", enabled=False, width=mod_w, tag=tag.skill.mod(skill))
     with tooltip(tag.skill.toggle(skill)):
-        for source in ["Player", "Race", "Class", "BG", "Feat"]:
+        for source in ["Player", "Race", "Class", "BG", "Milestone"]:
             with group(horizontal=True):
                 add_button(label=source, enabled=False, width=source_w)
                 add_checkbox(default_value=False, enabled=False, user_data=[""], callback=q.cbh, tag=tag.skill.source(skill, source))
@@ -178,12 +178,12 @@ def c_Health():
                 add_button(label="+", width=btn_w, user_data=["mod_Temp", 1], callback=q.cbh)
             with group(horizontal=True):
                 add_button(label="-", width=btn_w, user_data=["mod_HP", -1], callback=q.cbh)
-                add_button(label="", enabled=False, width=max_w-108, tag=tag.health.val.hp())
-                add_button(label="", enabled=False, width=max_w-150, tag=tag.health.val.temp())
+                add_button(label="", enabled=False, width=max_w-108, tag=tag.health.hp())
+                add_button(label="", enabled=False, width=max_w-150, tag=tag.health.temp())
                 add_button(label="-", width=btn_w, user_data=["mod_Temp", -1], callback=q.cbh)
     with popup(tag.health.label(), mousebutton=mvMouseButton_Left):
         add_button(label="Max", width=sz.Btn.L.w)
-        add_input_int(default_value=0, width=90, user_data=["mod_Base_HP"], callback=q.cbh, tag=tag.health.val.max())
+        add_input_int(default_value=0, width=90, user_data=["mod_Base_HP"], callback=q.cbh, tag=tag.health.max())
 
 def c_Skills():
     max_w=sz.Skill.w-16
@@ -194,7 +194,7 @@ def c_Skills():
             h_Skill_Row(skill)
 
 def c_Init():
-    h_Stat_Window("Init", tag.init, ["Dex", "Race", "Class", "Feat"])
+    h_Stat_Window("Init", tag.init, ["Dex", "Race", "Class", "Milestone"])
                 
 def c_Armor(): 
     h_Stat_Window("AC", tag.ac, ["Base", "Dex", "Shield"])
@@ -229,15 +229,25 @@ def c_Prof():
     max_w = sz.Prof.w - 16
     max_h = sz.Prof.h - 15
     btn_w = max_w - 101
+    
+    tw = tag.prof.label.weapon()
+    ta = tag.prof.label.armor()
+    tt = tag.prof.label.tool()
+    tl = tag.prof.label.lang()
     with group(parent=tag.prof.window()):
         add_button(label="Proficiencies", enabled=False, width=max_w, height=sz.Header.A.h)
         with group(horizontal=True):
-            add_button(label="Weapons", width=btn_w, tag=tag.prof.label.weapon())
-            add_button(label="Armor", width=btn_w, tag=tag.prof.label.armor())
+            add_button(label="Weapons", width=btn_w, tag=tw)
+            add_button(label="Armor", width=btn_w, tag=ta)
         with group(horizontal=True):
-            add_button(label="Tools", width=btn_w, tag=tag.prof.label.tool())
-            add_button(label="Languages", width=btn_w, tag=tag.prof.label.lang())
+            add_button(label="Tools", width=btn_w, tag=tt)
+            add_button(label="Languages", width=btn_w, tag=tl)
 
+    h_Prof(tw, {k: q.w.filter(Slot="Weapon", Cat=k, Tier=0) for k in ["Simple", "Martial"]})
+    h_Prof(ta, {"Armor": Rules.l.Armor})
+    h_Prof(tt, {"Artisan": Rules.l.Job, "Gaming": Rules.l.Game, "Musical": Rules.l.Music})
+    h_Prof(tl, {"Languages": Rules.l.Lang})
+    
 def h_Brand(name, width, index):
     parent_tag = tag.brand.char.group(str(index))
     label_t = tag.brand.label(name)
@@ -267,14 +277,14 @@ def c_Brand():
     h_Char()
 
 def c_Block(): 
-    w1 = sz.Block.w - 16
+    w1 = sz.Block.w - 19
     w2 = w1 - 16
     h1 = sz.Block.h - 40
     h2 = h1 - 15
     with group(parent=tag.block.window()):
         with tab_bar(tag=tag.block.tabbar()):
-            with tab(label="Features/Traits"):
-                with child_window(width=w1, height=h1, border=True):
+            with tab(label="Features/Traits", tag=tag.block.tabbar.FAT()):
+                with child_window(width=w1, height=h1, border=True, no_scrollbar=True):
                     ####
                     add_separator(label="Race")
                     with child_window(auto_resize_y=True, width=w2, border=True, tag=tag.block.r.asi()):
@@ -299,10 +309,18 @@ def c_Block():
                     add_child_window(auto_resize_y=True, width=w2, border=True, tag=tag.block.b.panel())
                     add_child_window(auto_resize_y=True, width=w2, border=True, tag=tag.block.b.feature())
                     ####
-            with tab(label="Actions"):
+            with tab(label="Actions", tag=tag.block.tabbar.Actions()):
                 with child_window(auto_resize_x=True, auto_resize_y=True, border=True):
                     with child_window(auto_resize_y=True, width=w2, border=True, tag=tag.block.actions.window()):
                         add_separator(label="Weapons")
+            with tab(label="Spells", tag=tag.block.tabbar.Spells()):
+                with child_window(auto_resize_x=True, auto_resize_y=True, border=True):
+                    with child_window(auto_resize_y=True, width=w2, border=True, tag=tag.block.Spells.window()):
+                        pass
+            with tab(label="Logger", tag=tag.block.tabbar.Logger()):
+                with child_window(auto_resize_x=True, auto_resize_y=True, border=True):
+                    with child_window(auto_resize_y=True, width=w2, height=h2, border=True, tag=tag.block.Logger.window()):
+                        pass
 
 def c_Block_Actions(): 
     with group(parent=tag.block.actions.window()):
@@ -317,7 +335,62 @@ def c_Block_Actions():
                 with table_row():
                     for j in Rules.l.Weapon_Atr:
                         add_table_cell(tag=tag.block.actions.cell(j,i))
+
+def c_Block_Spells(): 
+    w1 = sz.Block.w - 52
+    w2 = w1 - 18
+    w3 = w2 - 17
+    h1 = sz.Block.h - 94
+    h2 = h1 - 56
+    h3 = h2 - 40
+    ha = 35
     
+    
+    with group(parent=tag.block.Spells.window()):
+        with tab_bar():
+            with tab(label="Cast"):
+                with child_window(auto_resize_y=True, width=w1, height=h1, no_scrollbar=True, border=True, tag=tag.Spells.Cast()):
+                    with child_window(auto_resize_y=True, width=w2, height=ha, no_scrollbar=True, border=True, tag=tag.Spells.Cast.A()):
+                        with group(horizontal=True):
+                            add_button(label="Abil", enabled=False, width=40)
+                            add_text("", color=Coler.Header.G, tag=tag.spell.text("Abil"))
+                            add_button(label="Atk", enabled=False, width=40)
+                            add_text("", color=Coler.Header.G, tag=tag.spell.text("Atk"))
+                            add_button(label="DC", enabled=False, width=40)
+                            add_text("", color=Coler.Header.G, tag=tag.spell.text("DC"))                    
+                    with child_window(auto_resize_y=True, width=w2, height=h2, no_scrollbar=True, border=True, tag=tag.Spells.Cast.B()):
+                        pass
+            with tab(label="Learn"):
+                with child_window(auto_resize_y=True, width=w1, height=h1, no_scrollbar=True, border=True, tag=tag.Spells.Learn()):
+                    with child_window(auto_resize_y=True, width=w2, height=ha, no_scrollbar=True, border=True, tag=tag.Spells.Learn.A()):
+                        with group(horizontal=True):
+                            add_text("Cantrips", color=Coler.Header.C)
+                            add_text("", color=Coler.Text, tag=tag.Spells.Learn.Known.Cantrip())
+                            add_text("/", color=Coler.Text)
+                            add_text("", color=Coler.Text, tag=tag.Spells.Learn.Available.Cantrip())
+                            add_text("Spells", color=Coler.Header.C)
+                            add_text("", color=Coler.Text, tag=tag.Spells.Learn.Known.Spell())
+                            add_text("/", color=Coler.Text)
+                            add_text("", color=Coler.Text, tag=tag.Spells.Learn.Available.Spell())
+                    with child_window(auto_resize_y=True, width=w2, height=h2, no_scrollbar=True, border=True, tag=tag.Spells.Learn.B()):
+                        with tab_bar():
+                            for i in range(0, 10):
+                                with tab(label=f"Level {i}"):
+                                    add_child_window(auto_resize_y=True, width=w3, height=h3, no_scrollbar=True, border=True, tag=tag.Spells.Learn.WLevel(i))
+            with tab(label="Prepare"):
+                with child_window(auto_resize_y=True, width=w1, height=h1, no_scrollbar=True, border=True, tag=tag.Spells.Prepare()):
+                    with child_window(auto_resize_y=True, width=w2, height=ha, no_scrollbar=True, border=True, tag=tag.Spells.Prepare.A()):
+                        with group(horizontal=True):
+                            add_text("Prepared", color=Coler.Header.C)
+                            add_text("", color=Coler.Text, tag=tag.Spells.Prepare.current())
+                            add_text("/", color=Coler.Text)
+                            add_text("", color=Coler.Text, tag=tag.Spells.Prepare.available())
+                    with child_window(auto_resize_y=True, width=w2, height=h2, no_scrollbar=True, border=True, tag=tag.Spells.Prepare.B()):
+                        with tab_bar():
+                            for i in range(1, 10):
+                                with tab(label=f"Level {i}"):
+                                    add_child_window(auto_resize_y=True, width=w3, height=h3, no_scrollbar=True, border=True, tag=tag.Spells.Prepare.WLevel(i))
+
 def c_Inventory(): 
     h=sz.Inve.h
     with group(parent=tag.inve.window()):
@@ -395,6 +468,7 @@ def ui_start():
     c_Skills()
     c_Block()
     c_Block_Actions()
+    c_Block_Spells()
     c_Inventory()
     c_Inventory_Backpack()
     c_Inventory_Bazaar()

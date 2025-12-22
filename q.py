@@ -8,3 +8,8 @@ from Handbook.Grimoir import Grimoir, fTome
 Rules = Rules()
 Tag = Tag()
 Coler = Coler()
+
+
+dbm = None
+cbh = None
+w = None

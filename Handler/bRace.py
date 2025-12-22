@@ -1,6 +1,8 @@
-import q
+import q, re, math
 from Handler.Utils.funcs import *
 from Handbook.data_files.Races import *
+
+
 
 class Loader:
     def __init__(self, parent, db, Level, PB):
@@ -8,76 +10,66 @@ class Loader:
         self.db = db
         self.Level = Level
         self.PB = PB
-        self.Map = {
-            "Spell": self.Spell,
-            "Select": self.Select,
-            "Breath_Weapon": self.Breath_Weapon,
-            "Use": self.Use,
-            "HP": self.HP,
-            "Passive": self.Passive
-        }
-        
+        self.Map = {"Spell":self.Spell,"Select":self.Select,"Breath_Weapon":self.Breath_Weapon,"Use":self.Use,"HP":self.HP,"Passive":self.Passive}
         for feature in self.parent.Data.Features:
-            name = feature["Name"].replace(" ", "_")
+            name = feature["Name"].replace(" ","_")
             tag = feature["Tag"]
-            
-            if tag in self.Map:
-                self.Map[tag](feature, name)
+            if tag in self.Map: self.Map[tag](feature,name)
+
+
 
     def Hplace(self, name, tag):
-        place = self.db.Race.Features.setdefault(name, {})
+        place = self.db.Race.Features.setdefault(name,{})
         place["Tag"] = tag
         return place
 
     def get_past(self, Name, kind):
-        past = self.parent.Past.get(Name, {})
-        if kind == "Use": return past.get("Use", [])
-        if kind == "Select": return past.get("Select", [])
-        if kind == "Spell": return past.get("Spells", {})
+        past = self.parent.Past.get(Name,{})
+        if kind=="Use": return past.get("Use",[])
+        if kind=="Select": return past.get("Select",[])
+        if kind=="Spell": return past.get("Spells",{})
         return {}
 
     def Spell(self, feature, Name):
-        Place = self.Hplace(Name, "Spell")
-        past = self.get_past(Name, "Spell")
-        Place["Spells"] = {spell: past.get(spell, state) for spell, state in feature["Spells"].items()}
+        Place = self.Hplace(Name,"Spell")
+        past = self.get_past(Name,"Spell")
+        Place["Spells"] = {spell: past.get(spell,state) for spell,state in feature["Spells"].items()}
+        if "Desc" in feature: Place["Desc"] = [d for d in feature["Desc"]]
 
     def Select(self, feature, Name):
-
-        Place = self.Hplace(Name, "Select")
-        past = self.get_past(Name, "Select")
+        Place = self.Hplace(Name,"Select")
+        past = self.get_past(Name,"Select")
         Place["Choices"] = feature["Choices"]
         Place["Options"] = feature["Options"]
-        Place["Select"] = (past + [""] * feature["Choices"])[:feature["Choices"]]
-        
-        if "Desc" in feature: Place["Desc"] = feature["Desc"]
-        if "Multi_Desc" in feature: Place["Multi_Desc"] = feature["Multi_Desc"]
+        Place["Select"] = (past + [""]*feature["Choices"])[:feature["Choices"]]
+        if "Desc" in feature: Place["Desc"] = [d for d in feature["Desc"]]
+        if "Multi_Desc" in feature: Place["Multi_Desc"] = {k: v for k,v in feature["Multi_Desc"].items()}
 
     def Breath_Weapon(self, feature, Name):
         Damage = feature["Damage"]
         Use = feature["Use"]
         Mod = self.db.Atr[feature["Save"]].Mod
         SV = 8 + self.PB + Mod
-        
         Desc = feature["Desc"][0].format(Damage=Damage, SV=SV)
-        
-        Place = self.Hplace(Name, "Use")
-        past = self.get_past(Name, "Use")
+        Place = self.Hplace(Name,"Use")
+        past = self.get_past(Name,"Use")
         Place["Use"] = (past + Use)[:len(Use)]
         Place["Desc"] = [Desc]
 
     def Use(self, feature, Name):
-        Place = self.Hplace(Name, "Use")
-        past = self.get_past(Name, "Use")
+        Place = self.Hplace(Name,"Use")
+        past = self.get_past(Name,"Use")
         Place["Use"] = (past + feature["Use"])[:len(feature["Use"])]
-        Place["Desc"] = feature["Desc"]
+        Place["Desc"] = [d for d in feature["Desc"]]
 
     def HP(self, feature, Name):
-        Place = self.Hplace(Name, "Passive")
-        Place["Desc"] = feature["Desc"]
+        Place = self.Hplace(Name,"Passive")
+        Place["Desc"] = [d for d in feature["Desc"]]
 
     def Passive(self, feature, Name):
-        Place = self.Hplace(Name, "Passive")
-        Place["Desc"] = feature["Desc"]
+        Place = self.Hplace(Name,"Passive")
+        Place["Desc"] = [d for d in feature["Desc"]]
+
 
 class bRace:
     def __init__(self, parent):
@@ -93,7 +85,7 @@ class bRace:
         return self.parent.db
 
     def Config_Vars(self):
-        self.L, self.PB, self.R, self.SR = self.parent.Vis.Race
+        self.L, self.PB, self.R, self.SR = self.parent.Vis.ad_Race
 
     def Startup(self):
         self.Config_Vars()
@@ -120,10 +112,10 @@ class bRace:
         for key, val in p.items():
             Place.Vision[key].Sit("Race", val)
 
-        p = Data.Combat.HP
+        p = Data.Combat["HP"]
         Place.HP.Sit("Race", p)
         
-        p = Data.Combat.Initiative
+        p = Data.Combat["Initiative"]
         Place.Initiative.Sit("Race", p)
         
         p = Data.Prof
@@ -132,7 +124,7 @@ class bRace:
             Place.Prof[key].Clear("Race")
             Place.Prof[key].Sit("Race", d)
 
-        p = Data.Prof.Skill
+        p = Data.Prof["Skill"]
         for skill in Place.Skill:
             if skill in p: Place.Skill[skill].Sit("Race", "prof", True)
             else: Place.Skill[skill].Sit("Race", "prof", False)
@@ -140,7 +132,7 @@ class bRace:
     def New(self):
         self.Config_Vars()
         self.Past = {}
-        self.db.Race.fClear()
+        self.db.Race.Clear()
         if not self.R: return
         self.Load_Data()
 

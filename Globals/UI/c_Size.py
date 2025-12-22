@@ -23,11 +23,11 @@ class Skill_Row:
     Source = Define(50,0)
 
 class Sizing:
-    Max = Define(1350, 880)
+    Max = Define(1450, 880)
 
-    Block = Define(Max.w - 595, Max.h - 114)
+    Block = Define(Max.w - 592, Max.h - 114)
 
-    Wrap = 700
+    Wrap = 750
 
     Btn = Button()
     Header = Header()

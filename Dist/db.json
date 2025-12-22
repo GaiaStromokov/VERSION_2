@@ -1,47 +1,47 @@
 {
     "Core": {
         "Level": 3,
-        "Race": "Elf",
-        "Subrace": "Shadar_Kai",
-        "Class": "Empty",
-        "Subclass": "Empty",
+        "Race": "Human",
+        "Subrace": "",
+        "Class": "Fighter",
+        "Subclass": "",
         "Background": "Empty"
     },
     "Atr": {
         "STR": {
-            "Base": 1,
+            "Base": 10,
             "Race": 0,
             "Milestone": 0
         },
         "DEX": {
-            "Base": 1,
+            "Base": 10,
             "Race": 0,
             "Milestone": 0
         },
         "CON": {
-            "Base": 1,
+            "Base": 10,
             "Race": 0,
             "Milestone": 0
         },
         "INT": {
-            "Base": 1,
+            "Base": 10,
             "Race": 0,
             "Milestone": 0
         },
         "WIS": {
-            "Base": 1,
+            "Base": 10,
             "Race": 0,
             "Milestone": 0
         },
         "CHA": {
-            "Base": 1,
+            "Base": 10,
             "Race": 0,
             "Milestone": 0
         }
     },
     "Vision": {
         "Dark": {
-            "Race": 60,
+            "Race": 0,
             "Class": 0,
             "Feat": 0
         },
@@ -95,24 +95,66 @@
     },
     "HP": {
         "Temp": 0,
-        "Player": 30,
+        "Player": 34,
         "Race": 0,
         "Class": 0,
         "Milestone": 0,
-        "Current": 30
+        "Current": 31
     },
     "Prof": {
         "Weapon": {
             "Base": [],
             "Race": [],
-            "Class": [],
+            "Class": [
+                "Club",
+                "Dagger",
+                "Dart",
+                "Handaxe",
+                "Javelin",
+                "Light_Hammer",
+                "Mace",
+                "Quarterstaff",
+                "Sickle",
+                "Spear",
+                "Light_Crossbow",
+                "Shortbow",
+                "Sling",
+                "Battle_axe",
+                "Flail",
+                "Glaive",
+                "Great_axe",
+                "Greatsword",
+                "Halberd",
+                "Lance",
+                "Longsword",
+                "Maul",
+                "Morningstar",
+                "Pike",
+                "Rapier",
+                "Scimitar",
+                "Shortsword",
+                "Trident",
+                "War_Pick",
+                "Warhammer",
+                "Whip",
+                "Blowgun",
+                "Hand_Crossbow",
+                "Heavy_Crossbow",
+                "Long_bow",
+                "Net"
+            ],
             "Milestone": [],
             "Background": []
         },
         "Armor": {
             "Base": [],
             "Race": [],
-            "Class": [],
+            "Class": [
+                "Light",
+                "Medium",
+                "Heavy",
+                "Shield"
+            ],
             "Milestone": [],
             "Background": []
         },
@@ -126,8 +168,7 @@
         "Lang": {
             "Base": [],
             "Race": [
-                "Common",
-                "Elvish"
+                "Common"
             ],
             "Class": [],
             "Milestone": [],
@@ -335,7 +376,7 @@
         },
         "Perception": {
             "Race": {
-                "prof": true,
+                "prof": false,
                 "exp": false
             },
             "Class": {
@@ -461,45 +502,80 @@
         }
     },
     "Race": {
+        "Features": {}
+    },
+    "Class": {
+        "Skill": [
+            "",
+            ""
+        ],
         "Features": {
-            "Fey_Ancestry": {
-                "Tag": "Passive",
-                "Desc": [
-                    "Advantage vs Charm, Immune to magical sleep."
+            "Fighting_Style": {
+                "Tag": "Select",
+                "Choices": 1,
+                "Options": [
+                    "Archery",
+                    "Defense",
+                    "Dueling",
+                    "Great Weapon Fighting",
+                    "Protection",
+                    "Two Weapon Fighting",
+                    "Blind Fighting",
+                    "Interception",
+                    "Thrown Weapon Fighting",
+                    "Unarmed Fighting"
+                ],
+                "Select": [
+                    ""
                 ]
             },
-            "Trance": {
-                "Tag": "Passive",
-                "Desc": [
-                    "Meditate 4 hours instead of sleep."
-                ]
-            },
-            "Necrotic_Resistance": {
-                "Tag": "Passive",
-                "Desc": [
-                    "Resistance to Necrotic damage."
-                ]
-            },
-            "Blessing_of_the_Raven_Queen": {
+            "Second_Wind": {
                 "Tag": "Use",
                 "Use": [
-                    false,
                     false
                 ],
+                "Recharge": [
+                    "Short",
+                    "Long"
+                ],
                 "Desc": [
-                    "(Bonus) Teleport 30ft. Gain Resistance to all dmg until start of next turn."
+                    "(bonus) regain 1d10 + {LEVEL} HP"
+                ]
+            },
+            "Action_Surge": {
+                "Tag": "Use",
+                "Use": [
+                    false
+                ],
+                "Recharge": [
+                    "Short",
+                    "Long"
+                ],
+                "Desc": [
+                    "(free) take 1 additional action."
                 ]
             }
         }
     },
-    "Class": {
-        "Features": {}
+    "Condition": {
+        "Blinded": false,
+        "Charmed": false,
+        "Deafened": false,
+        "Frightened": false,
+        "Grappled": false,
+        "Incapacitated": false,
+        "Invisible": false,
+        "Paralyzed": false,
+        "Petrified": false,
+        "Poisoned": false,
+        "Prone": false,
+        "Restrained": false,
+        "Stunned": false,
+        "Unconscious": false,
+        "Exhaustion": false
     },
     "Caster": {
-        "Spell_Abil": "",
-        "Prep_Type": "",
-        "Caster_Type": "",
-        "L_Slot": [
+        "Slot": [
             [],
             [],
             [],
@@ -511,9 +587,29 @@
             [],
             []
         ],
-        "L_Max_Spell_Level": [],
-        "L_Cantrips_Available": [],
-        "L_Spells_Available": [],
-        "Slot": []
+        "Book": [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ],
+        "Prepared": [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            []
+        ]
     }
 }
