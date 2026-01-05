@@ -1,4 +1,4 @@
-import copy
+import q
 
 class ItemManager:
     def __init__(self):
@@ -45,19 +45,25 @@ class Item:
     def id(self):
         return f"{self.base_name}_{self.tier}"
 
+    def Atr(self, key):
+        if "Finesse" in self.prop:
+            return max(getattr(q.dbm.db.Atr, "STR").Mod, getattr(q.dbm.db.Atr, "DEX").Mod)
+        return getattr(q.dbm.db.Atr, key).Mod
+
 class Weapon(Item):
     dType = ""
     Range = ""
     Roll = ""
     sDam = 1
+    dMod = "STR"
 
     @property
     def Hit(self):
-        return self.tier
+        return self.Atr(self.dMod) + q.dbm.db.Core.PB + self.tier
 
     @property
     def Dam(self):
-        return self.tier * self.sDam
+        return self.Atr(self.dMod) + (self.tier * self.sDam)
 
 class Armor(Item):
     bAC = 0
@@ -67,7 +73,9 @@ class Armor(Item):
 
     @property
     def AC(self):
-        return self.bAC + self.tier
+        if "Shield" in self.cat:
+            return self.bAC + self.tier
+        return self.bAC + self.tier + min(self.Atr("DEX"), self.dMax)
 
 class Dagger(Weapon):
     base_name = "Dagger"
@@ -109,6 +117,7 @@ class Net(Weapon):
     sDam = 0
     cost = 1
     weight = 3
+    dMod = "DEX"
 
 class Shield(Armor):
     base_name = "Shield"

@@ -2,7 +2,7 @@ from dearpygui.dearpygui import *
 import q
 from Manager.Database_Manager import DBM
 from Handbook.Rules import Rules
-from Manager.Item_Manager import ItemLibrary
+from Manager.Item_Manager import ItemManager
 from Frontend.On_Start import ui_start
 
 get_path = q.get_path
@@ -18,7 +18,7 @@ def on_exit_callback():
 
 
 def startup():
-    q.w = ItemLibrary()
+    q.idm = ItemManager()
     q.rules = Rules()
     q.dbm=DBM()
     q.cbh = q.dbm.cbh.callback_func()
