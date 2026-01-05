@@ -1,7 +1,7 @@
 {
     "Core": {
         "Level": 3,
-        "Race": "Human",
+        "Race": "Harengon",
         "Subrace": "",
         "Class": "Fighter",
         "Subclass": "",
@@ -376,7 +376,7 @@
         },
         "Perception": {
             "Race": {
-                "prof": false,
+                "prof": true,
                 "exp": false
             },
             "Class": {
@@ -502,7 +502,30 @@
         }
     },
     "Race": {
-        "Features": {}
+        "Features": {
+            "Hare-Trigger": {
+                "Tag": "Passive",
+                "Desc": [
+                    "Add {PB} to Initiative."
+                ]
+            },
+            "Lucky_Footwork": {
+                "Tag": "Passive",
+                "Desc": [
+                    "(Reaction) On failed DEX save, add {PB}."
+                ]
+            },
+            "Rabbit_Hop": {
+                "Tag": "Use",
+                "Use": [
+                    false,
+                    false
+                ],
+                "Desc": [
+                    "(Bonus) Jump {PB*5} ft, no Opportunity Attacks."
+                ]
+            }
+        }
     },
     "Class": {
         "Skill": [
@@ -526,7 +549,7 @@
                     "Unarmed Fighting"
                 ],
                 "Select": [
-                    ""
+                    "Great Weapon Fighting"
                 ]
             },
             "Second_Wind": {
